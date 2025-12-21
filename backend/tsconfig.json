@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    // File layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    // Environment
+    "module": "nodenext",
+    "target": "ES2023",
+
+    "types": ["node"],
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
+
+    // Source maps
+    "sourceMap": true,
+    "skipLibCheck": true,
+
+    // Type checking
+    "strict": true,
+
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+
+    // Optional advanced options
+    "isolatedModules": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}

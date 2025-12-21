@@ -52,3 +52,5 @@ coverage/
 .cache/
 .eslintcache
 .prettierignore
+/src/generated/prisma
+docker-compose.yml
