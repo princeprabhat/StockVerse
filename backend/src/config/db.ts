@@ -5,12 +5,20 @@ import { PrismaClient } from "../generated/prisma/client.js";
 const connectionString = `${process.env.DATABASE_URL}`;
 
 const adapter = new PrismaPg({ connectionString });
-const prisma = new PrismaClient({ adapter });
+const prisma = new PrismaClient({
+  adapter,
+  omit: {
+    user: {
+      password: true, // 🔒 globally removed
+    },
+  },
+});
 
 const connectDb = async () => {
   try {
     await prisma.$connect();
     await prisma.$queryRaw`SELECT 1`;
+
     console.log("Database connected, query executed successfully...");
   } catch (error) {
     console.error(
