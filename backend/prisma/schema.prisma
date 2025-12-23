@@ -25,8 +25,35 @@ model User {
 
 }
 
+model Stock{
+  id String @id @default(uuid())
+  symbol String @unique
+  name String 
+  logoUrl String
+  exchange Exchange
+  listingPrice Decimal
+  createdAt DateTime @default(now())
+  prices StockPrice[]
+}
+
+model StockPrice{
+  id String @id @default(uuid())
+  stockId String 
+  openPrice Decimal
+  closingPrice Decimal
+  high Decimal
+  low Decimal
+  currentPrice Decimal
+  stock     Stock @relation(fields: [stockId], references: [id])
+  updatedAt DateTime @updatedAt
+}
 
 
+enum Exchange{
+BSE
+NSE
+NASDAQ
+}
 enum Role{
   Member
   Admin

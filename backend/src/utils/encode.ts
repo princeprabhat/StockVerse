@@ -1,14 +1,8 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { AuthPayload } from "../types/auth.js";
 
-type Role = "Member" | "Admin";
-
-interface JwtPayload {
-  userId: string;
-  role?: Role;
-}
-
-const encodeToken = (payload: JwtPayload): string => {
+const encodeToken = (payload: AuthPayload): string => {
   const jwtSecret = process.env.JWT_SECRET!;
 
   if (!jwtSecret) {
