@@ -5,6 +5,7 @@ import routes from "./routes/index.js";
 import ApiError from "./utils/ApiError.js";
 import httpStatus from "http-status";
 import errorHandler from "./middleware/errorHandler.js";
+// import "./cron/schedule.js";
 
 const app = express();
 // TODO:Configure Rate limiter
