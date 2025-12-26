@@ -3,6 +3,10 @@ import http from "http";
 import app from "./app.js";
 import { connectDb, disconnectDb } from "./config/db.js";
 import { config } from "dotenv";
+import { initPriceMap } from "./price/price.store.js";
+import "./jobs/open.market.js";
+import "./jobs/close.market.js";
+import { initSocket } from "./socket.js";
 
 config();
 
@@ -24,9 +28,12 @@ io.on("connection", (socket) => {
   });
 });
 
+initSocket(io);
+
 const startServer = async () => {
   try {
     await connectDb();
+    await initPriceMap();
     server.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
