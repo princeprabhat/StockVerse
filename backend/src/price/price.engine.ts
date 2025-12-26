@@ -11,7 +11,7 @@ function getRandomPrice(price: Decimal): Decimal {
     // Increment the number by 1% to 5%
     newPrice = price.plus(price.mul(change));
   } else {
-    // Decrement the number by 1% to 5%
+    // ecrement the number by 1% to 5%
     newPrice = price.minus(price.mul(change));
   }
   if (newPrice.lt(0)) return new Decimal(0);

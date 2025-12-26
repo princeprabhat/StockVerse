@@ -13,7 +13,7 @@ interface priceType {
 
 export const priceMap: Record<string, priceType> = {};
 
-const getStockPrice = async () => {
+export const initPriceMap = async (): Promise<void> => {
   const stockPrice = await prisma.stock.findMany({
     select: {
       id: true,
@@ -40,6 +40,5 @@ const getStockPrice = async () => {
       stockId: stock.id,
     };
   }
+  console.info("Price Map initialized...");
 };
-
-getStockPrice();
