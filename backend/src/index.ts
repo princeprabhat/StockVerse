@@ -6,6 +6,7 @@ import { config } from "dotenv";
 import { initPriceMap } from "./price/price.store.js";
 import "./jobs/open.market.js";
 import "./jobs/close.market.js";
+import { initSocket } from "./socket.js";
 
 config();
 
@@ -26,6 +27,8 @@ io.on("connection", (socket) => {
     console.log("Socket disconnected:", socket.id);
   });
 });
+
+initSocket(io);
 
 const startServer = async () => {
   try {

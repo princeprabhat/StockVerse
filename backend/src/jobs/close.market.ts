@@ -3,11 +3,15 @@ import nodeCron from "node-cron";
 import { stopEmitter } from "../price/price.socket.js";
 import { prisma } from "../config/db.js";
 import { priceMap } from "../price/price.store.js";
+import { getIO } from "../socket.js";
+
+const io = getIO();
 
 function closeMarket() {
   console.log("Market close now...");
   stopEmitter();
   saveLastPriceSnap();
+  io.emit("market:closed", priceMap);
 }
 
 const saveLastPriceSnap = async () => {
