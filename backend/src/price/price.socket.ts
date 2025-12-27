@@ -20,8 +20,6 @@ const startEmitter = () => {
 const stopEmitter = () => {
   if (!intervalId) return;
 
-  // Because the closeMarket file has already updated the priceMap one last time. So last time we are sending it.
-
   clearInterval(intervalId);
   intervalId = null;
 };

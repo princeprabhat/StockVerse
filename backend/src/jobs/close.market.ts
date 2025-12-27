@@ -7,10 +7,10 @@ import { getIO } from "../socket.js";
 
 const io = getIO();
 
-function closeMarket() {
+async function closeMarket() {
   console.log("Market close now...");
   stopEmitter();
-  saveLastPriceSnap();
+  await saveLastPriceSnap();
   io.emit("market:closed", priceMap);
 }
 

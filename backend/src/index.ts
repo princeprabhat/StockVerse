@@ -4,11 +4,17 @@ import app from "./app.js";
 import { connectDb, disconnectDb } from "./config/db.js";
 import { config } from "dotenv";
 import { initPriceMap } from "./price/price.store.js";
-import "./jobs/open.market.js";
-import "./jobs/close.market.js";
+
 import { initSocket } from "./socket.js";
+import { isMarketOpen } from "./utils/serverRestart.js";
+import { startEmitter } from "./price/price.socket.js";
 
 config();
+
+export const startJobs = () => {
+  import("./jobs/open.market.js");
+  import("./jobs/close.market.js");
+};
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -28,8 +34,6 @@ io.on("connection", (socket) => {
   });
 });
 
-initSocket(io);
-
 const startServer = async () => {
   try {
     await connectDb();
@@ -37,6 +41,12 @@ const startServer = async () => {
     server.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
+    initSocket(io);
+    startJobs();
+    if (isMarketOpen()) {
+      console.log("Server started during market hours, resuming engine...");
+      startEmitter();
+    }
   } catch (error) {
     console.error("Failed to start server:", error);
     process.exit(1);
